@@ -432,7 +432,10 @@ shots_data <- list(N=ngames_train, N_prev=ngames_test, score_home=score1,
 # fit stan model
 mod_shots_stan <- stan(file="shots.stan", data=shots_data,  iter = 1000,
                        chains = 4, cores = 4, seed = 1)
- 
+# save the Stan fit result (mod_shots_stan in the document) in a new file called fit.RData.
+save(mod_shots_stan, file = "fit.RData")
+# load("fit.RData")
+
 #  extract posterior output
 sims <- extract(mod_shots_stan)
 
@@ -455,6 +458,7 @@ in some seasons---such as Middlesbrough, Swansea, Watford and many others.
 
 ```{r team abilities, fig.height=17, echo=FALSE}
 # load the stanfit
+# # Due to the dimension of the file, the fit.RData file containing the Stan fit object is not included in this repository. The interested reader may however reproduce all the code contained in egidi_notebook.Rmd and save the Stan fit result (mod_shots_stan in the document) in a new file called fit.RData.
 load("fit.RData")
 sims <- extract(mod_shots_stan)
 season_unique <- 1:nseason
